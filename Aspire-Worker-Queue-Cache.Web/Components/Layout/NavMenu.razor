@@ -1,0 +1,38 @@
+﻿@using System.Reflection
+
+<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">AspireWebApp</a>
+    </div>
+</div>
+
+<input type="checkbox" title="Navigation menu" class="navbar-toggler" />
+
+<div class="nav-scrollable">
+    <nav class="nav flex-column">
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <i class="fa-solid fa-house"></i> Home
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="weather">
+                <i class="fa-solid fa-cloud-sun"></i> Weather
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="request-form">
+                <i class="fa-solid fa-paper-plane"></i> Submit Request
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="request-history">
+                <i class="fa-solid fa-history"></i> Request History
+            </NavLink>
+        </div>
+    </nav>
+</div>
+
+@code {
+    private bool IsOrchestrator => Type.GetType("Aspire.Hosting.IDistributedApplicationBuilder, Aspire.Hosting") != null;
+}

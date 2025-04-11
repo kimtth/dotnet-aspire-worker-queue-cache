@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Sdk Name="Aspire.AppHost.Sdk" Version="9.0.0" />
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsAspireHost>true</IsAspireHost>
+    <UserSecretsId>4f6842b8-fd88-461d-8c80-2cbc5104abeb</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Aspire-Worker-Queue-Cache.ApiService\Aspire-Worker-Queue-Cache.ApiService.csproj" />
+    <ProjectReference Include="..\Aspire-Worker-Queue-Cache.Functions\Aspire-Worker-Queue-Cache.Functions.csproj" />
+    <ProjectReference Include="..\Aspire-Worker-Queue-Cache.Web\Aspire-Worker-Queue-Cache.Web.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="9.1.0" />
+    <PackageReference Include="Aspire.Hosting.Azure.Functions" Version="9.1.0-preview.1.25121.10" />
+    <PackageReference Include="Aspire.Hosting.Redis" Version="9.1.0" />
+    <PackageReference Include="Aspire.Hosting.Azure.Storage" Version="9.1.0" />
+    <PackageReference Include="Aspire.Hosting.Azure.CosmosDB" Version="9.1.0" />
+  </ItemGroup>
+
+</Project>

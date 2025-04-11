@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "Aspire_Worker_Queue_Cache.Functions": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7203",
+      "launchBrowser": false
+    }
+  }
+}

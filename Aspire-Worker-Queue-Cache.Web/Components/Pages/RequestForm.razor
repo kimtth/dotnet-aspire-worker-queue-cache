@@ -1,0 +1,92 @@
+@page "/request-form"
+@using Aspire_Worker_Queue_Cache.Web.Models
+@using Aspire_Worker_Queue_Cache.Web.Services
+@using Microsoft.AspNetCore.Components
+@inject RequestApiClient RequestApiClient
+@rendermode InteractiveServer
+
+<PageTitle>Submit Request</PageTitle>
+
+<h1>Submit Request</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group mb-3">
+                <label for="userId">User ID:</label>
+                <input type="text" class="form-control" id="userId" @bind="request.UserId" />
+            </div>
+            <div class="form-group mb-3">
+                <label for="requestContent">Request Content:</label>
+                <textarea class="form-control" id="requestContent" rows="3" @bind="request.Request"></textarea>
+            </div>
+            <button class="btn btn-primary" @onclick="SubmitRequest" disabled="@isSubmitting">
+                @if (isSubmitting)
+                {
+                    <span>Submitting...</span>
+                }
+                else
+                {
+                    <span>Submit Request</span>
+                }
+            </button>
+        </div>
+    </div>
+
+    @if (!string.IsNullOrEmpty(message))
+    {
+        <div class="row mt-4">
+            <div class="col">
+                <div class="alert @(isSuccess ? "alert-success" : "alert-danger")">
+                    @message
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    private SubmitRequestDto request = new SubmitRequestDto();
+    private bool isSubmitting = false;
+    private string message = string.Empty;
+    private bool isSuccess = false;
+
+    private async Task SubmitRequest()
+    {
+        if (string.IsNullOrWhiteSpace(request.UserId) || string.IsNullOrWhiteSpace(request.Request))
+        {
+            message = "Please fill in all fields.";
+            isSuccess = false;
+            return;
+        }
+
+        isSubmitting = true;
+
+        try
+        {
+            var requestId = await RequestApiClient.SubmitRequestAsync(request);
+
+            if (requestId != null)
+            {
+                message = $"Request submitted successfully with ID: {requestId}";
+                isSuccess = true;
+                // Reset the form
+                request = new SubmitRequestDto();
+            }
+            else
+            {
+                message = "Failed to submit the request. Please try again.";
+                isSuccess = false;
+            }
+        }
+        catch (Exception ex)
+        {
+            message = $"An error occurred: {ex.Message}";
+            isSuccess = false;
+        }
+        finally
+        {
+            isSubmitting = false;
+        }
+    }
+}
